@@ -32,8 +32,6 @@ public class Order {
     }
 
     // generate getters and setters
-
-
     public long getOrdnum() {
         return ordnum;
     }
