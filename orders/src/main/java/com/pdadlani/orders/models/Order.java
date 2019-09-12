@@ -1,5 +1,7 @@
 package com.pdadlani.orders.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
@@ -12,9 +14,11 @@ public class Order {
     private double ordamount;
     private double advanceamount;
 
-    // one to many relationship
+    // many to one relationship
     @ManyToOne
     @JoinColumn(name = "custcode", nullable = false)
+    // added
+    @JsonIgnoreProperties("order")
     private Customer customer;
 
     private String orddescription;

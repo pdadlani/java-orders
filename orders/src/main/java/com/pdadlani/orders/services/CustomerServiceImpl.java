@@ -26,7 +26,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer findCustomerByName(String name) {
-        Customer customer = custrepos.findByCustName(name);
+        Customer customer = custrepos.findByCustname(name);
 
         if (customer == null) {
             throw new EntityNotFoundException("Customer Not Found " + name);
@@ -51,6 +51,9 @@ public class CustomerServiceImpl implements CustomerService {
         newCustomer.setOutstandingamt(customer.getOutstandingamt());
         newCustomer.setPhone(customer.getPhone());
 
+        // added
+        newCustomer.setAgent((customer.getAgent()));
+
         for (Order o : customer.getOrders()) {
             newCustomer.getOrders().add(new Order(o.getOrdamount(), o.getAdvanceamount(), newCustomer, o.getOrddescription()));
         }
@@ -73,8 +76,8 @@ public class CustomerServiceImpl implements CustomerService {
         if (customer.getWorkingarea() != null) {
             currentCustomer.setWorkingarea(customer.getWorkingarea());
         }
-        if (customer.getCustcity() != null) {
-            currentCustomer.setCustcity(customer.getCustcity());
+        if (customer.getCustcountry() != null) {
+            currentCustomer.setCustcountry(customer.getCustcountry());
         }
         if (customer.getGrade() != null) {
             currentCustomer.setGrade(customer.getGrade());
@@ -92,7 +95,12 @@ public class CustomerServiceImpl implements CustomerService {
             currentCustomer.setOutstandingamt(customer.getOutstandingamt());
         }
         if (customer.getPhone() != null) {
-            currentCustomer.setPhone((customer.getPhone()));
+            currentCustomer.setPhone(customer.getPhone());
+        }
+
+        // added
+        if (customer.getAgent() != null) {
+            currentCustomer.setAgent(customer.getAgent());
         }
 
         if (customer.getOrders().size() > 0) {

@@ -14,6 +14,8 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long custcode;
 
+    // added
+    @Column(nullable = false)
     private String custname;
     private String custcity;
     private String workingarea;
@@ -27,11 +29,15 @@ public class Customer {
 
     @ManyToOne
     @JoinColumn(name = "agentcode", nullable = false)
+    @JsonIgnoreProperties("customers")
     private Agent agent;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    // replaced the following
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+//    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties("customer")
     private List<Order> orders = new ArrayList<>();
+//    private Order orders;
 
     // default constructor
     public Customer() {
@@ -158,4 +164,13 @@ public class Customer {
     public void setOrders(List<Order> orders) {
         this.orders = orders;
     }
+
+
+//    public Order getOrders() {
+//        return orders;
+//    }
+//
+//    public void setOrders(Order orders) {
+//        this.orders = orders;
+//    }
 }
